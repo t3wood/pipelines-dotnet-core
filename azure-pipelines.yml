@@ -15,3 +15,14 @@ variables:
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Pay-As-You-Go(4889bece-579c-44d6-9271-2359c4342880)'
+    appType: 'webApp'
+    appName: 'tw-dotnetcore-pipelines'
+    deployToSlotOrASE: true
+    resourceGroupName: 'test-pipelines'
+    slotName: 'production'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
